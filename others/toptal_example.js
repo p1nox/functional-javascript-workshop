@@ -1,4 +1,4 @@
-// # equilibrium index ---
+// Equilibrium index ---
 //
 // The equilibrium index of a sequence is an index such that the sum of elements at lower
 // indexes is equal to the sum of elements at higher indexes. For example, in a sequence A:
@@ -27,31 +27,36 @@
 //   // write your code in JavaScript (ECMA-262, 5th edition)
 // }
 
-var sum = function(a, b){
-  return a + b;
-};
+var solution = (function() {
+  'use strict';
 
-var solution = function(A) {
-  var equilibrium = -1;
-  var totalSum    = A.reduce(sum, 0);
+  var sum = function(a, b){
+    return a + b;
+  };
 
-  var leftSum = 0;
+  return function(A) {
+    var equilibrium = -1;
+    var totalSum    = A.reduce(sum, 0);
 
-  A.every(function(el, i, a){
-    var rightSum = totalSum - leftSum - el;
+    var leftSum = 0;
 
-    if (leftSum === rightSum){
-      equilibrium = i;
-      return false;
-    }
-    leftSum += el;
-    return true;
-  });
+    A.every(function(el, i, a){
+      var rightSum = totalSum - leftSum - el;
 
-  return equilibrium;
-};
+      if (leftSum === rightSum){
+        equilibrium = i;
+        return false;
+      }
+      leftSum += el;
+      return true;
+    });
+
+    return equilibrium;
+  };
+
+}).call(this);
 
 console.log( solution([-7, 1, 5, 2, -4, 3, 0]) );
 
 // 100% performance in codibility
-// https://codility.com/demo/results/demoXYJ9KP-BAX/
+// https://codility.com/demo/results/demoGRVPRG-BQU/
